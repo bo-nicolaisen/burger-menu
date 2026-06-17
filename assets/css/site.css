@@ -132,7 +132,7 @@ body {
 	opacity: 0;          /* Gennemsigtig (usynlig) */
 	text-align: center;  /* Centrerer menupunkterne vandret */
 	padding-top: 20px;
-	transition: all 0.3s ease-in-out; /* Animerer alle ændringer over 0,3 sekunder */
+	 /* Animerer alle ændringer over 0,3 sekunder */
 
 	/* --- AKTIV TILSTAND (.overlay klassen) ---
 	   JavaScript tilføjer denne klasse, når brugeren klikker på burger-ikonet.
