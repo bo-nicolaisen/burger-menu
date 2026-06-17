@@ -1,120 +1,164 @@
+/* =============================================
+   GRUNDLÆGGENDE SIDE-INDSTILLINGER
+   Disse regler gælder for hele siden (body = sidens "krop")
+   ============================================= */
 body {
-	margin: 0;
-	padding: 0;
-	overflow-x: hidden;
-	font-family: sans-serif;
-	background: #1e3c72;
+	margin: 0;          /* Fjerner den standard-afstand, browseren sætter rundt om kanten */
+	padding: 0;         /* Fjerner standard-indre afstand */
+	overflow-x: hidden; /* Forhindrer vandret scrollbar, hvis noget stikker ud til siden */
+	font-family: sans-serif; /* Bruger en simpel, læsbar skrifttype uden serifer */
+	background: #1e3c72; /* Mørkeblå baggrundfarve på hele siden */
 }
 
+
+
+
+
+
+
+
+
+
+/* =============================================
+   BURGER-IKON
+   Selve det klikkable ikon med de tre streger.
+   Ikonet er bygget af ét HTML-element (<span>) og to
+   CSS "pseudo-elementer" (:before og :after), som
+   automatisk oprettes af browseren — ingen ekstra HTML nødvendig.
+   ============================================= */
 #burger-menu {
-	cursor: pointer;
-	height: 27px;
-	width: 27px;
-	margin: 50px;
-	overflow: visible;
-	position: relative;
-	z-index: 2;
+	cursor: pointer;    /* Viser en hånd-markør, når musen er over ikonet */
+	height: 27px;       /* Ikonets højde */
+	width: 27px;        /* Ikonets bredde */
+	margin: 50px;       /* Afstand fra kanten af siden til ikonet */
+	overflow: visible;  /* Tillader at indholdet (stregerne) må stikke ud over ikonets egne mål */
+	position: relative; /* Gør det muligt at placere de indre streger præcist med "position: absolute" */
+	z-index: 2;         /* Sørger for at ikonet ligger oven på menuen (højere tal = forrest) */
 
 
+	/* --- De tre streger (midterste streg + de to pseudo-elementer) ---
+	   span  = midterste streg
+	   span:before = øverste streg (skabt automatisk af CSS)
+	   span:after  = nederste streg (skabt automatisk af CSS)
+	*/
 	span,
 	span:before,
 	span:after {
-		background: #fff;
-		display: block;
-		height: 2px;
-		opacity: 1;
-		position: absolute;
-		transition: 0.3s ease-in-out;
+		background: #fff;              /* Stregernes farve: hvid */
+		display: block;                /* Gør dem til blok-elementer, så de kan have højde/bredde */
+		height: 2px;                   /* Stregernes tykkelse */
+		opacity: 1;                    /* Fuldt synlige (0 = usynlig, 1 = fuldt synlig) */
+		position: absolute;            /* Placeres præcist inden for #burger-menu */
+		transition: 0.3s ease-in-out; /* Animerer alle ændringer over 0,3 sekunder med blød start/slut */
 	}
 
+	/* :before og :after er "virtuelle" elementer — de skal have content: ''
+	   for overhovedet at blive vist, selv om de er tomme */
 	span:before,
 	span:after {
 		content: '';
 	}
 
-	
+	/* Øverste streg: placeret 10px over midten */
 	span:before {
 		left: 0px;
 		top: -10px;
 		width: 27px;
 	}
 
-	
+	/* Midterste streg: placeret på midten af ikonet (27px høj boks, top: 13px ≈ midten) */
 	span {
 		right: 0px;
 		top: 13px;
 		width: 27px;
 	}
 
-	
+	/* Nederste streg: placeret 10px under midten */
 	span:after {
 		left: 0px;
 		top: 10px;
 		width: 27px;
 	}
 
-	
+	/* --- LUKKE-TILSTAND (.close klassen) ---
+	   Når JavaScript tilføjer klassen "close" til #burger-menu,
+	   animerer stregerne sig til et X-tegn.
+	   & er en CSS-genvej for "samme element som forælderen" — altså #burger-menu.close
+	*/
 	&.close {
-	
+
+		/* Øverste streg flyttes ned til midten og drejes 90 grader */
 		span:before {
 			top: 0px;
-			transform: rotate(90deg);
+			transform: rotate(90deg); /* Roterer stregen 90 grader (lodret) */
 			width: 27px;
 		}
 
-		
+		/* Midterste streg drejes -45 grader og danner den ene arm af X'et */
 		span {
 			transform: rotate(-45deg);
 			top: 13px;
 			width: 27px;
 		}
 
+		/* Nederste streg gøres usynlig og krymper til ingenting */
 		span:after {
 			top: 0px;
 			left: 0;
 			transform: rotate(90deg);
-			opacity: 0;
-			width: 0;
+			opacity: 0;  /* Usynlig */
+			width: 0;    /* Ingen bredde — "forsvinder" animeret */
 		}
 	}
 }
 
 
 
+/* =============================================
+   NAVIGATIONSMENUEN (overlay)
+   Menuen er som standard skjult. Når JavaScript
+   tilføjer klassen "overlay", glider den frem.
+   ============================================= */
 #menu {
-	z-index: 1;
-	min-width: 100%;
-	min-height: 100%;
-	position: fixed;
-	top: 0;
-	height: 0;
-	visibility: hidden;
-	opacity: 0;
-	text-align: center;
+	z-index: 1;          /* Ligger bag burger-ikonet (z-index: 2), men foran sidens indhold */
+	min-width: 100%;     /* Dækker hele skærmens bredde */
+	min-height: 100%;    /* Dækker hele skærmens højde */
+	position: fixed;     /* Forbliver på skærmen, selv om brugeren scroller */
+	top: 0;              /* Starter øverst på skærmen */
+	height: 0;           /* Skjult som standard: højden er 0 */
+	visibility: hidden;  /* Skjult for skærmlæsere og mus */
+	opacity: 0;          /* Gennemsigtig (usynlig) */
+	text-align: center;  /* Centrerer menupunkterne vandret */
 	padding-top: 20px;
-	transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out; /* Animerer alle ændringer over 0,3 sekunder */
 
+	/* --- AKTIV TILSTAND (.overlay klassen) ---
+	   JavaScript tilføjer denne klasse, når brugeren klikker på burger-ikonet.
+	   Menuen glider synligt frem som et halvgennemsigtigt mørkt overlay.
+	*/
 	&.overlay {
-		visibility: visible;
-		opacity: 1;
-		padding-top: 100px;
-		background: rgba(0, 0, 0, 0.5);
+		visibility: visible;           /* Gøres synlig */
+		opacity: 1;                    /* Fuldt synlig */
+		padding-top: 100px;            /* Skubber menupunkterne ned fra toppen */
+		background: rgba(0, 0, 0, 0.5); /* Sort baggrund med 50% gennemsigtighed (r, g, b, alpha) */
 	}
 
+	/* Fjerner standard-indrykning fra listen (<ul>) */
 	ul {
 		padding: 0;
 	}
 
+	/* Fjerner prikken/punktet foran hvert listeelement (<li>) */
 	li {
 		list-style: none;
 	}
 
+	/* Styling af menulinkene (<a>) */
 	a {
-		color: #fff;
-		display: block;
-		font-size: 32px;
-		margin-bottom: 30px;
-		text-decoration: none;
+		color: #fff;            /* Hvid tekst */
+		display: block;         /* Gør hvert link til et blok-element, så det fylder hele bredden */
+		font-size: 32px;        /* Stor, tydelig tekststørrelse */
+		margin-bottom: 30px;    /* Afstand mellem hvert menupunkt */
+		text-decoration: none;  /* Fjerner standard-understregningen på links */
 	}
 }
-

@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!-- DOCTYPE fortæller browseren at dette er en moderne HTML5-side.
+     Det skal altid stå som allerførste linje. -->
+
+<!-- De næste linjer er gamle tricks til Internet Explorer (IE).
+     IE er ikke længere i brug, men koden er ufarlig at beholde.
+     "lt IE 7" betyder "less than IE 7" osv. -->
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -6,29 +12,71 @@
 <html>
 
 <head>
+    <!-- HEAD-sektionen er "bag kulisserne" — indholdet her vises ikke
+         direkte på siden, men fortæller browseren vigtige informationer. -->
+
+    <!-- Sætter tegnsættet til UTF-8, så æ, ø, å og andre specialtegn virker korrekt -->
     <meta charset="utf-8">
+
+    <!-- Beder Internet Explorer om at bruge den nyeste gengivelses-motor den har -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Sidens titel — vises i browserfanen og i søgemaskineresultater -->
     <title></title>
+
+    <!-- En kort beskrivelse af siden — bruges af søgemaskiner (tom her) -->
     <meta name="description" content="">
-  
+
+    <!-- Favicon: det lille ikon der vises i browserfanen -->
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.png">
+
+    <!-- Viewport-tagget er afgørende for mobilvisning:
+         width=device-width → brug skærmens faktiske bredde (ikke en simuleret desktop-bredde)
+         initial-scale=1    → ingen zoom ved indlæsning -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Indlæser CSS-filen der styrer al styling på siden -->
     <link rel="stylesheet" href="/assets/css/site.css">
+
+    <!-- Indlæser JavaScript-filen.
+         "defer" betyder: vent med at køre scriptet til al HTML er indlæst.
+         Det sikrer at JS'en kan finde HTML-elementerne, når den leder efter dem. -->
     <script src="assets/js/site.js" defer></script>
 </head>
 
 <body>
-<div id="burger-menu">
-  <span></span>
-</div>
+<!-- BODY-sektionen indeholder alt det synlige indhold på siden. -->
 
-<nav id="menu">
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About Us</a></li>
-    </ul>
-</nav>
+    <!-- BURGER-IKONET
+         Et simpelt div-element med id="burger-menu".
+         id'et bruges af både CSS (til styling) og JavaScript (til at lytte efter klik).
 
+         Den ene <span> her er midterstregen i ikonet.
+         De to andre streger (øverst og nederst) skabes automatisk af CSS
+         via :before og :after — ingen ekstra HTML er nødvendig. -->
+    <div id="burger-menu">
+        <span></span>
+    </div>
+
+    <!-- NAVIGATIONSMENUEN
+         <nav> er et semantisk HTML-element — det fortæller browseren og
+         skærmlæsere at dette er et navigationsområde (ikke bare en generisk div).
+
+         id="menu" bruges af JavaScript til at tilføje/fjerne klassen "overlay",
+         som får menuen til at vise sig.
+
+         Menuen er skjult som standard via CSS og bliver synlig, når
+         JavaScript tilføjer klassen "overlay" ved klik på burger-ikonet. -->
+    <nav id="menu">
+        <!-- <ul> = unordered list (punktliste uden numre)
+             Bruges her til at strukturere menupunkterne -->
+        <ul>
+            <!-- Hvert menupunkt er et <li> (list item) med et <a>-link inde i sig.
+                 href="#" er en tom pladsholder — erstat med den rigtige URL. -->
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+        </ul>
+    </nav>
 
 </body>
 
