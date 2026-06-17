@@ -1,6 +1,6 @@
 /* =============================================
    GRUNDLÆGGENDE SIDE-INDSTILLINGER
-   Disse regler gælder for hele siden (body = sidens "krop")
+   Disse regler gælder for hele siden (body)
    ============================================= */
 body {
 	margin: 0;          /* Fjerner den standard-afstand, browseren sætter rundt om kanten */
@@ -118,6 +118,8 @@ body {
    NAVIGATIONSMENUEN (overlay)
    Menuen er som standard skjult. Når JavaScript
    tilføjer klassen "overlay", glider den frem.
+   Dette gælder KUN på mobil (skærme op til 390px).
+   På større skærme overtager breakpointet nederst.
    ============================================= */
 #menu {
 	z-index: 1;          /* Ligger bag burger-ikonet (z-index: 2), men foran sidens indhold */
@@ -160,5 +162,56 @@ body {
 		font-size: 32px;        /* Stor, tydelig tekststørrelse */
 		margin-bottom: 30px;    /* Afstand mellem hvert menupunkt */
 		text-decoration: none;  /* Fjerner standard-understregningen på links */
+	}
+}
+
+
+
+/* =============================================
+   DESKTOP-MENU — BREAKPOINT VED 390px
+   "min-width: 391px" betyder: disse regler gælder
+   KUN når skærmen er BREDERE end 390px.
+   På mobil (≤390px) er det reglerne ovenfor der gælder.
+   ============================================= */
+@media (min-width: 391px) {
+
+	/* Skjul burger-ikonet på desktop — vi bruger en normal menu i stedet */
+	#burger-menu {
+		display: none;
+	}
+
+	/* Omdan navigationsmenuen til en horisontal menubar.
+	   Vi nulstiller alle de mobile skjule-tricks og bruger flexbox
+	   til at stille menupunkterne på række. */
+	#menu {
+		position: static;      /* Ikke længere "fixed" — følger det normale dokumentflow */
+		visibility: visible;   /* Altid synlig på desktop */
+		opacity: 1;            /* Fuldt synlig */
+		height: auto;          /* Lad indholdet bestemme højden */
+		min-height: 0;         /* Nulstiller mobilens min-height: 100% */
+		padding-top: 0;        /* Ingen ekstra luft i toppen */
+		background: #1e3c72;   /* Samme mørkeblå som sidens baggrund, så den smelter ind */
+
+		/* Flexbox: placerer ul inde i menuen som en vandret række */
+		display: flex;
+		justify-content: flex-end; /* Skubber menupunkterne til højre side */
+		align-items: center;       /* Centrerer indholdet lodret */
+
+		ul {
+			display: flex;     /* Gør selve listen til en vandret flexrække */
+			gap: 10px;         /* Afstand mellem hvert menupunkt */
+			margin: 0;
+		}
+
+		a {
+			font-size: 16px;       /* Mindre tekst passer bedre til en menubar */
+			margin-bottom: 0;      /* Fjerner mobilens lodrette afstand */
+			padding: 15px 20px;    /* Indre luft rundt om hvert link (klikflade) */
+			transition: color 0.2s ease; /* Blød farveovergang ved hover */
+
+			&:hover {
+				color: red; /* Teksten skifter til rød, når musen er over linket */
+			}
+		}
 	}
 }
