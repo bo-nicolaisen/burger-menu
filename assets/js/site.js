@@ -25,7 +25,7 @@ const overlay = document.getElementById('menu');
 
 // addEventListener("click", ...) betyder:
 // "Når brugeren klikker på burgerMenu, så kør funktionen herinde."
-burgerMenu.addEventListener('click', function() {
+burgerMenu.addEventListener('click', () => {
 
   // classList.toggle("close") virker som en lyskontakt:
   // - Har elementet IKKE klassen "close"? → tilføj den.

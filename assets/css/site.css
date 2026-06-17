@@ -64,6 +64,7 @@ body {
 		left: 0px;
 		top: -10px;
 		width: 27px;
+		
 	}
 
 	/* Midterste streg: placeret på midten af ikonet (27px høj boks, top: 13px ≈ midten) */
@@ -71,6 +72,7 @@ body {
 		right: 0px;
 		top: 13px;
 		width: 27px;
+		
 	}
 
 	/* Nederste streg: placeret 10px under midten */
@@ -78,6 +80,7 @@ body {
 		left: 0px;
 		top: 10px;
 		width: 27px;
+		
 	}
 
 	/* --- LUKKE-TILSTAND (.close klassen) ---
